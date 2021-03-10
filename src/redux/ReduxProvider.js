@@ -36,6 +36,14 @@ export default class ReduxProvider extends React.Component {
                     ]
                 },
                 {
+                    email: "alum2@test.com",
+                    password: "1234",
+                    rol: "alumno",
+                    subjects: [
+                        "DORE", "ISST", "RSRD"
+                    ]
+                },
+                {
                     email: "pas1@test.com",
                     password: "1234",
                     rol: "pas",
