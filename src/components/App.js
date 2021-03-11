@@ -25,21 +25,7 @@ function App(props) {
   console.log(props)
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to ="/"> Home </Link>
-          </li>
-          <li>
-            <Link to ="/login"> Login </Link>
-          </li>
-          <li>
-            <Link to ="/notas"> Notas </Link>
-          </li>
-          <li>
-            <Link to ="/users"> Usuarios </Link>
-          </li>
-        </ul>
+      <div className="main">
 
         <Switch>
           <Route exact path="/login">
