@@ -27,7 +27,6 @@ function App(props) {
   return (
     <Router>
       <div className="main">
-
         <Switch>
           <Route exact path="/login">
             { userLogged.rol !== undefined ? <Redirect to ="/" /> :

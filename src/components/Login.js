@@ -32,7 +32,7 @@ export default function Login(props) {
               <div>
                 <label> Email </label>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -40,7 +40,7 @@ export default function Login(props) {
               <div>
                 <label> Contraseña </label>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
