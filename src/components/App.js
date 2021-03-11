@@ -8,6 +8,7 @@ import Home from "./Home";
 import Login from "./Login";
 import Notas from "./Notas";
 import Users from "./Users";
+import Actas from "./Actas";
 
 // Importamos las acciones
 import {
@@ -36,10 +37,12 @@ function App(props) {
                 let rol = rolRestart;
                 let subjects = subjectsRestart;
                 for (var user in usersBBDD) {
-                  if (email == usersBBDD[user].email && pass == usersBBDD[user].password)
+                  if (email == usersBBDD[user].email && pass == usersBBDD[user].password){
                     rol = usersBBDD[user].rol;
                     subjects = usersBBDD[user].subjects;
+                  }
                 }
+                
                 props.dispatch(userLogin(rol, subjects));                
               }}
             />
@@ -47,6 +50,9 @@ function App(props) {
           </Route>
           <Route exact path="/notas">
             <Notas />
+          </Route>
+          <Route exact path="/actas">
+            <Actas />
           </Route>
           <Route exact path="/users">
             <Users />
