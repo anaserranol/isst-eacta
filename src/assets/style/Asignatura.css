@@ -11,6 +11,10 @@
     font-size: 3.5em;
 }
 
+#butNota {
+    padding-top: 10px;
+}
+
 #nomAsig {
     font-size: 2em;
     border-bottom: 5px solid grey;

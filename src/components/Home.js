@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div className="todo">
-              <Header rol = {this.props.userLogged.rol} onLogout={() => this.props.onLogout()}/>
+              <Header userLogged = {this.props.userLogged} rol = {this.props.userLogged.rol} onLogout={() => this.props.onLogout()}/>
                 
                 <Asignatura 
                 userLogged={this.props.userLogged}

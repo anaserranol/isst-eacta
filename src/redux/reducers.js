@@ -20,12 +20,14 @@ function userLogged (state = [], action = {}) {
     case USER_LOGIN:
       return {
         rol: action.payload.rol,
-        subjects: action.payload.subjects
+        subjects: action.payload.subjects,
+        name: action.payload.name
       }
     case USER_LOGOUT:
       return {
         rol: action.payload.rolRestart,
-        subjects: action.payload.subjectsRestart
+        subjects: action.payload.subjectsRestart,
+        name: action.payload.name
       }
     default:
       return state;

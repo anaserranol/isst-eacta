@@ -17,7 +17,8 @@ export default class ReduxProvider extends React.Component {
                     rol: "profesor",
                     subjects: [ 
                         "DORE", "ISST", "RSRD"
-                    ]
+                    ],
+                    name:"profesor1"
                 },
                 {
                     email: "profe2@test.com",
@@ -25,7 +26,8 @@ export default class ReduxProvider extends React.Component {
                     rol: "profesor",
                     subjects: [
                         "DORE", "ISST"
-                    ]
+                    ],
+                    name:"profesor2"
                 },
                 {
                     email: "alum1@test.com",
@@ -33,7 +35,8 @@ export default class ReduxProvider extends React.Component {
                     rol: "alumno",
                     subjects: [
                         "DORE", "ISST", "RSRD"
-                    ]
+                    ],
+                    name:"alumno1"
                 },
                 {
                     email: "alum2@test.com",
@@ -41,7 +44,8 @@ export default class ReduxProvider extends React.Component {
                     rol: "alumno",
                     subjects: [
                         "DORE", "ISST", "RSRD"
-                    ]
+                    ],
+                    name:"alumno2"
                 },
                 {
                     email: "pas1@test.com",
@@ -49,7 +53,8 @@ export default class ReduxProvider extends React.Component {
                     rol: "pas",
                     subjects: [
                         "DORE", "ISST", "RSRD"
-                    ]
+                    ],
+                    name:"secretario1"
                 },
                 {
                     email: "admin1@test.com",
@@ -57,13 +62,15 @@ export default class ReduxProvider extends React.Component {
                     rol: "admin",
                     subjects: [
                         ""
-                    ]
+                    ],
+                    name: "admin"
                 }
             ],
             userLogged: [
                 {
                     rol: "",
-                    subjects: [""]
+                    subjects: [""],
+                    name: ""
                 }   
             ],
         };

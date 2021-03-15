@@ -18,7 +18,8 @@ import {
 // Importamos las constantes
 import {
   rolRestart,
-  subjectsRestart
+  subjectsRestart,
+  nameRestart
 } from "./Constants"
 
 function App(props) {
@@ -35,31 +36,48 @@ function App(props) {
               onLogin = {(email, pass) => {
                 let rol = rolRestart;
                 let subjects = subjectsRestart;
+                let name = nameRestart;
                 for (var user in usersBBDD) {
                   if (email == usersBBDD[user].email && pass == usersBBDD[user].password){
                     rol = usersBBDD[user].rol;
                     subjects = usersBBDD[user].subjects;
+                    name = usersBBDD[user].name;
                   }
                 }
                 
-                props.dispatch(userLogin(rol, subjects));                
+                props.dispatch(userLogin(rol, subjects, name));                
               }}
             />
             }
           </Route>
           <Route exact path="/notas">
-            <Notas />
+            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+              <Notas
+              onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
+              userLogged = {userLogged}
+              />
+            }
           </Route>
           <Route exact path="/actas">
-            <Actas />
+            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+              <Actas
+              onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
+              userLogged = {userLogged}
+              />
+            }
           </Route>
           <Route exact path="/users">
-            <Users />
+            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+              <Users
+              onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
+              userLogged = {userLogged}
+              />
+            }
           </Route>
           <Route exact path="/">
             {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
               <Home 
-                onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart))}
+                onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
                 userLogged = {userLogged}
               /> 
             }
