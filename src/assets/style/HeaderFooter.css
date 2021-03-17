@@ -62,3 +62,18 @@
     color: white;
     text-align: center;
 }
+
+.footer .atras {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    height: 40%;
+    font-size: medium;
+    width: 10%;
+    align-self: center;
+    justify-self: flex-end;
+    box-shadow: none;
+    border-radius: 8px;
+    border-color: #7ED957;
+    background-color: #fff;
+}

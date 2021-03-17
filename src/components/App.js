@@ -30,7 +30,7 @@ function App(props) {
       <div className="main">
         <Switch>
           <Route exact path="/login">
-            { userLogged.rol !== undefined ? <Redirect to ="/" /> :
+            { userLogged.rol !== undefined ? userLogged.rol === "admin" ? <Redirect to ="/users" /> : <Redirect to ="/" /> :
             <Login 
               userLogged = {userLogged}
               onLogin = {(email, pass) => {
@@ -69,8 +69,9 @@ function App(props) {
           <Route exact path="/users">
             {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
               <Users
-              onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
-              userLogged = {userLogged}
+                onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
+                userLogged = {userLogged}
+                usersBBDD = {usersBBDD}
               />
             }
           </Route>

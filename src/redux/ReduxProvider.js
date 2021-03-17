@@ -63,7 +63,7 @@ export default class ReduxProvider extends React.Component {
                     subjects: [
                         ""
                     ],
-                    name: "admin"
+                    name: "administrador"
                 }
             ],
             userLogged: [
@@ -72,7 +72,7 @@ export default class ReduxProvider extends React.Component {
                     subjects: [""],
                     name: ""
                 }   
-            ],
+            ]
         };
         this.store = this.configureStore();
     }
