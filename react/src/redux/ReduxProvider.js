@@ -21,6 +21,7 @@ export default class ReduxProvider extends React.Component {
                 }   
             ],
             subjects: [],
+            marks: []
         };
         this.store = this.configureStore();
     }

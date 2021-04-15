@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 // Importamos las acciones
 import {
+  SAVE_MARKS,
   SAVE_SUBJECTS,
   INIT_USERS,
   USER_LOGIN,
@@ -47,6 +48,17 @@ function subjects (state = [], action = {}) {
   }
 }
 
+function marks (state = [], action = {}) {
+  switch (action.type) {
+    case SAVE_MARKS:
+        return action.payload.marks;
+    case USER_LOGOUT:
+      return action.payload.marksRestart;
+    default:
+      return state;
+  }
+}
+
 
 
 
@@ -54,7 +66,8 @@ function subjects (state = [], action = {}) {
 const GlobalState = combineReducers({
     usersBBDD,
     userLogged,
-    subjects
+    subjects,
+    marks
   });
   
   export default GlobalState;

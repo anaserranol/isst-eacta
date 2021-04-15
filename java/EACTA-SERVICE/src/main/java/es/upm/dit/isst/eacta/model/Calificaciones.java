@@ -15,24 +15,27 @@ public class Calificaciones implements Serializable {
 	private int codigoAsignatura;
 	private long alumnoID;
 	private double nota;
+	private boolean revisionPedida;
 	
 	
 	public Calificaciones() {
 		super();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int)alumnoID;
+		result = prime * result + (int) (alumnoID ^ (alumnoID >>> 32));
 		result = prime * result + codigoAsignatura;
 		result = prime * result + id;
 		long temp;
 		temp = Double.doubleToLongBits(nota);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (revisionPedida ? 1231 : 1237);
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -51,8 +54,29 @@ public class Calificaciones implements Serializable {
 			return false;
 		if (Double.doubleToLongBits(nota) != Double.doubleToLongBits(other.nota))
 			return false;
+		if (revisionPedida != other.revisionPedida)
+			return false;
 		return true;
 	}
+
+
+	public boolean isRevisionPedida() {
+		return revisionPedida;
+	}
+
+
+
+	public void setRevisionPedida(boolean revisionPedida) {
+		this.revisionPedida = revisionPedida;
+	}
+
+
+
+	public void setAlumnoID(long alumnoID) {
+		this.alumnoID = alumnoID;
+	}
+
+
 
 	public int getId() {
 		return id;

@@ -2,6 +2,7 @@ export const rolRestart = undefined;
 export const subjectsRestart = [];
 export const nameRestart = undefined;
 export const idRestart = undefined;
+export const marksRestart = [];
 export const verdeClaro = "#7ED957"
 export const calificaciones = [[ "10", "9", "8"],["5","9","-"]];
 export const estado = ["provisional", "final", "provisional"]

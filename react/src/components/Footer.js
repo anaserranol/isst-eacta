@@ -11,7 +11,7 @@ export default function Footer () {
     console.log(location);
         return (
             <div className="footer">
-                <button class="atras" hidden={location.pathname === "/"} onClick={ () => {
+                <button className="atras" hidden={location.pathname === "/"} onClick={ () => {
                     history.push('/')
                 }}>Atrás</button>
                 <h2 id="gracias"> Gracias por usar eActa </h2>

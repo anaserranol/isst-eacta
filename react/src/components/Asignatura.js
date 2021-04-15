@@ -1,46 +1,45 @@
 import React from "react";
-import { userLogout } from "../redux/actions";
 import { calificaciones, estado, fechas } from "./Constants";
 import { Link } from "react-router-dom";
-import Users from "./Users";
 import "../assets/style/Asignatura.css"
 
 export default class Asignaturas extends React.Component {
     render() {
-        const userLogged = this.props.userLogged;
+        const {userLogged, subjects, notas} = this.props;
         const alumno = userLogged.name === "alumno1" ? 0 : 1;
         if (userLogged.rol === "admin"){
             return (
                 <h1>Algo ha ocurrido, error</h1>
             )
-        }else if (this.props.subjects === [""]){
+        }else if (subjects === [""]){
             return (
                 <div>Este usuario no tiene asignaturas</div>
             )
         }else{
-        const listOfSubjects = this.props.subjects.map((asig,num) =>
+        const listOfSubjects = subjects.map((asig,num) =>
         
-        <div id="box">
-            <h1 id="nomAsig">{asig.nombre}</h1>
+        <div id="box" key={num}>
+            <h1 id="nomAsig">{asig.acronimo}</h1>
             <h2 hidden={userLogged.rol !== "alumno"}>Calificación:</h2>
-            <h2 id="numNota" hidden={userLogged.rol !== "alumno"}>{calificaciones[alumno][num]}</h2>
+            <h2 id="numNota" hidden={userLogged.rol !== "alumno"}>{userLogged.rol !== "alumno" ? null : notas[num].nota}</h2>
             <Link to ={{ 
                 pathname: "/notas", 
                 state: {
                   //usuario: userLogged.subjects[num],
+                  codAsig: asig.codigo,
                   calificaciones: calificaciones,
                   numero: num,
-                  estado: estado[num],
-                  fechaPublic: fechas[0][num],
-                  fechaRevisi: fechas[1][num]
+                  estado: asig.final,
+                  fechaPublic: asig.fechaPublicacion,
+                  fechaRevisi: asig.fechaRevision
                 }
                 }}
-                hidden={userLogged.rol === "alumno"}><button>Calificaciones</button></Link>
+                hidden={userLogged.rol !== "profesor"}><button>Calificaciones</button></Link>
             <p hidden={userLogged.rol !== "alumno"}>Nota {estado[num]}</p>
             <p hidden={userLogged.rol === "alumno"}> Las notas son {estado[num]}es</p>
-            <p hidden={estado[num] === "final"}> La fecha provisional de publicacion de notas es: {fechas[0][num]}</p>
-            <p hidden={estado[num] === "final"}>La fecha de revisión es: {fechas[1][num]}</p>
-            <button hidden={userLogged.rol !== "alumno" || estado[num] === "final"}>Pedir revisión</button>
+            <p hidden={asig.final}> La fecha provisional de publicacion de notas es: {asig.fechaPublicacion}</p>
+            <p hidden={asig.final}>La fecha de revisión es: {asig.fechaRevision}</p>
+            <button hidden={userLogged.rol !== "alumno" || asig.final}>Pedir revisión</button>
             <Link to ={{ 
                 pathname: "/actas", 
                 state: {

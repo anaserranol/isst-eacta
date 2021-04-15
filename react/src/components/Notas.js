@@ -3,43 +3,84 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-import { useLocation } from 'react-router-dom';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { useEffect } from "react";
 
-import '../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css';
+import { useLocation } from "react-router-dom";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 
-export default function Notas (props) {
+import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 
-    const location = useLocation();
-    const state = location.state;
-    var data = [
-        {id: "alumno1", nota: state.calificaciones[0][state.numero] },
-        {id: "alumno2", nota: state.calificaciones[1][state.numero]}
-    ];
+export default function Notas(props) {
+  const location = useLocation();
+  const state = location.state;
+  useEffect(() => {
+    // Se hace asi para evitar un bucle
+    const fetchData = async () => {
+      try {
+        // Descargamos las calificaciones de la asignatura
+        let response = await fetch(
+          "http://localhost:8080/EACTA-SERVICE/rest/Calificaciones/asignatura/" +
+            state.codAsig
+        );
+        // Los convertimos a array
+        let calif = await response.json();
+        // Se los pasamos a Redux
+        props.marks(calif);
+      } catch (e) {
+        alert(e);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(state.asig)
+  const notasTable = [];
+  const alumnos = [];
+  props.notas.map((not, i) => {
+    for (let us in props.usersBBDD) {
+      if (not.alumnoID === props.usersBBDD[us].id) 
+      alumnos.push(props.usersBBDD[us]);
+    }
+  });
+  props.notas.map((not, i) => {
+    notasTable.push({
+      id: alumnos[i].nombre,
+      nota: not.nota,
+      revision: not.revisionPedida ? "Sí" : "No",
+    });
+  });
+  var data = [
+    { id: "alumno1", nota: state.calificaciones[0][state.numero] },
+    { id: "alumno2", nota: state.calificaciones[1][state.numero] },
+  ];
 
-        return (
-            <div className="todo">
-            <Header userLogged = {props.userLogged} rol = {props.userLogged.rol} onLogout={() => props.onLogout()}/>
-            <h1>{state.usuario}</h1>
-            <BootstrapTable data = {data}>
-                <TableHeaderColumn isKey dataField="id">
-                    ALUMNO
-                </TableHeaderColumn>
-                <TableHeaderColumn dataField="nota">
-                    NOTA
-                </TableHeaderColumn>
-            </BootstrapTable>
-            <button disabled={state.estado === "final"}>Importar</button>
-            <button disabled={state.estado === "final"}>Modificar</button>
-            <button disabled={state.estado === "final"}>Guardar cambios</button>
-            <button>Exportar</button>
-            <span hidden={state.estado === "final"}>
-                <p>Fecha de publicación: {state.fechaPublic} </p>
-                <button>Modificar fechas</button>
-                <p>Fecha de revisión: {state.fechaRevisi} </p>
-                <button>Modificar fechas</button>
-            </span>
-            <Footer />
-          </div>
-        )
+  return (
+    <div className="todo">
+      <Header
+        userLogged={props.userLogged}
+        rol={props.userLogged.rol}
+        onLogout={() => props.onLogout()}
+      />
+      <h1>{state.usuario}</h1>
+      <BootstrapTable data={notasTable}>
+        <TableHeaderColumn isKey dataField="id">
+          ALUMNO
+        </TableHeaderColumn>
+        <TableHeaderColumn dataField="nota">NOTA</TableHeaderColumn>
+        <TableHeaderColumn dataField="revision">
+          REVISIÓN PEDIDA
+        </TableHeaderColumn>
+      </BootstrapTable>
+      <button disabled={state.estado }>Importar</button>
+      <button disabled={state.estado}>Modificar</button>
+      <button disabled={state.estado}>Guardar cambios</button>
+      <button>Exportar</button>
+      <span hidden={state.estado}>
+        <p>Fecha de publicación: {state.fechaPublic} </p>
+        <button>Modificar fechas</button>
+        <p>Fecha de revisión: {state.fechaRevisi} </p>
+        <button>Modificar fechas</button>
+      </span>
+      <Footer />
+    </div>
+  );
 }
