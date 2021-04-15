@@ -11,68 +11,16 @@ export default class ReduxProvider extends React.Component {
         super(props);
         this.initialState = { 
             usersBBDD: [
-                {
-                    email: "profe1@test.com",
-                    password: "1234",
-                    rol: "profesor",
-                    subjects: [ 
-                        "DORE", "ISST", "RSRD"
-                    ],
-                    name:"profesor1"
-                },
-                {
-                    email: "profe2@test.com",
-                    password: "1234",
-                    rol: "profesor",
-                    subjects: [
-                        "DORE", "ISST"
-                    ],
-                    name:"profesor2"
-                },
-                {
-                    email: "alum1@test.com",
-                    password: "1234",
-                    rol: "alumno",
-                    subjects: [
-                        "DORE", "ISST", "RSRD"
-                    ],
-                    name:"alumno1"
-                },
-                {
-                    email: "alum2@test.com",
-                    password: "1234",
-                    rol: "alumno",
-                    subjects: [
-                        "DORE", "ISST", "RSRD"
-                    ],
-                    name:"alumno2"
-                },
-                {
-                    email: "pas1@test.com",
-                    password: "1234",
-                    rol: "pas",
-                    subjects: [
-                        "DORE", "ISST", "RSRD"
-                    ],
-                    name:"secretario1"
-                },
-                {
-                    email: "admin1@test.com",
-                    password: "1234",
-                    rol: "admin",
-                    subjects: [
-                        ""
-                    ],
-                    name: "administrador"
-                }
+
             ],
             userLogged: [
                 {
                     rol: "",
-                    subjects: [""],
-                    name: ""
+                    name: "",
+                    id: ""
                 }   
-            ]
+            ],
+            subjects: [],
         };
         this.store = this.configureStore();
     }

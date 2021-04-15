@@ -2,14 +2,16 @@ import { combineReducers } from 'redux';
 
 // Importamos las acciones
 import {
+  SAVE_SUBJECTS,
+  INIT_USERS,
   USER_LOGIN,
   USER_LOGOUT
 } from "./actions";
 
 function usersBBDD (state = [], action = {}) {
   switch (action.type) {
-    case USER_LOGIN:
-      return state;
+    case INIT_USERS:
+      return action.payload.users;
     default:
       return state;
   }
@@ -20,15 +22,26 @@ function userLogged (state = [], action = {}) {
     case USER_LOGIN:
       return {
         rol: action.payload.rol,
-        subjects: action.payload.subjects,
-        name: action.payload.name
+        name: action.payload.name,
+        id: action.payload.id
       }
     case USER_LOGOUT:
       return {
         rol: action.payload.rolRestart,
-        subjects: action.payload.subjectsRestart,
-        name: action.payload.name
+        name: action.payload.nameRestart,
+        id: action.payload.idRestart,
       }
+    default:
+      return state;
+  }
+}
+
+function subjects (state = [], action = {}) {
+  switch (action.type) {
+    case SAVE_SUBJECTS:
+        return action.payload.subs;
+    case USER_LOGOUT:
+      return action.payload.subjectsRestart;
     default:
       return state;
   }
@@ -41,6 +54,7 @@ function userLogged (state = [], action = {}) {
 const GlobalState = combineReducers({
     usersBBDD,
     userLogged,
+    subjects
   });
   
   export default GlobalState;

@@ -13,21 +13,21 @@ export default class Asignaturas extends React.Component {
             return (
                 <h1>Algo ha ocurrido, error</h1>
             )
-        }else if (userLogged.subjects === [""]){
+        }else if (this.props.subjects === [""]){
             return (
                 <div>Este usuario no tiene asignaturas</div>
             )
         }else{
-        const listOfSubjects = userLogged.subjects.map((asig,num) =>
+        const listOfSubjects = this.props.subjects.map((asig,num) =>
         
         <div id="box">
-            <h1 id="nomAsig">{asig}</h1>
+            <h1 id="nomAsig">{asig.nombre}</h1>
             <h2 hidden={userLogged.rol !== "alumno"}>Calificación:</h2>
             <h2 id="numNota" hidden={userLogged.rol !== "alumno"}>{calificaciones[alumno][num]}</h2>
             <Link to ={{ 
                 pathname: "/notas", 
                 state: {
-                  usuario: userLogged.subjects[num],
+                  //usuario: userLogged.subjects[num],
                   calificaciones: calificaciones,
                   numero: num,
                   estado: estado[num],
@@ -44,7 +44,7 @@ export default class Asignaturas extends React.Component {
             <Link to ={{ 
                 pathname: "/actas", 
                 state: {
-                  usuario: userLogged.subjects[num],
+                  //usuario: userLogged.subjects[num],
                   estado: estado[num],
                 }
                 }} 

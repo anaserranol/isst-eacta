@@ -12,6 +12,8 @@ import Actas from "./Actas";
 
 // Importamos las acciones
 import {
+  saveSubjects,
+  initUsers,
   userLogin, userLogout,
 } from "../redux/actions"
 
@@ -19,11 +21,12 @@ import {
 import {
   rolRestart,
   subjectsRestart,
-  nameRestart
+  nameRestart,
+  idRestart
 } from "./Constants"
 
 function App(props) {
-  const { usersBBDD, userLogged } = props;
+  const { usersBBDD, userLogged, allTfgs } = props;
   console.log(props)
   return (
     <Router>
@@ -32,20 +35,21 @@ function App(props) {
           <Route exact path="/login">
             { userLogged.rol !== undefined ? userLogged.rol === "admin" ? <Redirect to ="/users" /> : <Redirect to ="/" /> :
             <Login 
+              initUsers = {(users) => props.dispatch(initUsers(users))}
               userLogged = {userLogged}
               onLogin = {(email, pass) => {
                 let rol = rolRestart;
-                let subjects = subjectsRestart;
                 let name = nameRestart;
+                let id = idRestart;
                 for (var user in usersBBDD) {
                   if (email == usersBBDD[user].email && pass == usersBBDD[user].password){
                     rol = usersBBDD[user].rol;
-                    subjects = usersBBDD[user].subjects;
-                    name = usersBBDD[user].name;
+                    name = usersBBDD[user].nombre;
+                    id = usersBBDD[user].id;
                   }
                 }
                 
-                props.dispatch(userLogin(rol, subjects, name));                
+                props.dispatch(userLogin(rol, name, id));                
               }}
             />
             }
@@ -78,9 +82,12 @@ function App(props) {
           <Route exact path="/">
             {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
               <Home 
+                asig = {props.subjects}
                 onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart))}
                 userLogged = {userLogged}
-              /> 
+                subjs = {(subj) => props.dispatch(saveSubjects(subj))}
+                subjects = {props.subjects}
+                /> 
             }
           </Route>
         </Switch>

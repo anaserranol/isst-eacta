@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import "../assets/style/Login.css";
@@ -9,11 +10,24 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (props.userLogged.rol !== undefined)
-      document.getElementById(
-        "pruebaa"
-      ).innerHTML = `Soy ${props.userLogged.rol}`;
-  });
+    // Se hace asi para evitar un bucle
+    const fetchData = async () => {
+      try {
+        // Descargamos los usuarios de la url dada
+        let response = await fetch(
+          "http://localhost:8080/EACTA-SERVICE/rest/Usuarios"
+        );
+        // Los convertimos a array
+        let users = await response.json();
+        // Se los pasamos a Redux
+        console.log("Cargando")
+        props.initUsers(users);
+      } catch (e) {
+        alert(e);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="login">

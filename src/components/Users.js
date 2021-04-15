@@ -8,11 +8,12 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import '../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css';
 
 export default class Users extends React.Component {
+
     render() {
         const usersBBDD = this.props.usersBBDD;
         const usersTable = [];
         usersBBDD.map((user, num) => {
-            usersTable.push({id: user.email, rol: user.rol})
+            usersTable.push({id: user.email, rol: user.rol, name: user.nombre})
         })
         return (
             <div className="todo">
@@ -24,6 +25,9 @@ export default class Users extends React.Component {
                 </TableHeaderColumn>
                 <TableHeaderColumn dataField="rol">
                     ROL
+                </TableHeaderColumn>
+                <TableHeaderColumn dataField="name">
+                    NOMBRE
                 </TableHeaderColumn>
             </BootstrapTable>
             <button>Modificar rol</button>
