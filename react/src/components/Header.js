@@ -10,7 +10,7 @@ export default class Home extends React.Component {
         return (
             <div className="header">
                 <div className="user">
-                    <img className="fotoPerfil" src={unknown}/>
+                    <img className="fotoPerfil" src={unknown} alt="logo"/>
                     <div className="userInfo">
                         <p className="userName">Usuario: {this.props.userLogged.name}</p>
                         <p className="userRol">Rol: {this.props.rol} </p>

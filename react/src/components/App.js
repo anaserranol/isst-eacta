@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import '../assets/style/App.css';
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect, useRouteMatch, useParams} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 
 // Importamos componentes
 import Home from "./Home";

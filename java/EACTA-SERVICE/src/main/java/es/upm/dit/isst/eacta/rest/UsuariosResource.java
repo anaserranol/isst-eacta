@@ -31,7 +31,7 @@ public class UsuariosResource {
 	public Response create(Usuarios tnew) throws URISyntaxException {
 		Usuarios t = UsuariosDAOImplementation.getInstance().create(tnew);
 		if (t != null) {
-            URI uri = new URI("/Usuarios-SERVICE/rest/Usuarios/" + t.getId());
+            URI uri = new URI("/EACTA-SERVICE/rest/Usuarios/" + t.getId());
             return Response.created(uri).build();
 		}
 		return Response.status(Response.Status.NOT_FOUND).build();
@@ -53,7 +53,7 @@ public class UsuariosResource {
     public Response update(@PathParam("id") int id, Usuarios t) {
             System.out.println("Update request for" + id + " " + t.toString());
         Usuarios told = UsuariosDAOImplementation.getInstance().read(id);
-        if ((told == null) || (told.getId() != (t.getId())))
+        if ((told == null) || (!(told.getId() == (t.getId()))))
           return Response.notModified().build();
         UsuariosDAOImplementation.getInstance().update(t);
         return Response.ok().build();                

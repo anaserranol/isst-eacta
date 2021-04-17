@@ -32,9 +32,10 @@ export default function Notas(props) {
     };
     fetchData();
   }, []);
-  console.log(state.asig)
   const notasTable = [];
   const alumnos = [];
+  console.log(state.fechaPublic)
+  
   props.notas.map((not, i) => {
     for (let us in props.usersBBDD) {
       if (not.alumnoID === props.usersBBDD[us].id) 
@@ -75,9 +76,13 @@ export default function Notas(props) {
       <button disabled={state.estado}>Guardar cambios</button>
       <button>Exportar</button>
       <span hidden={state.estado}>
-        <p>Fecha de publicación: {state.fechaPublic} </p>
+        <p>Fecha de publicación: { state.fechaPublic.dayOfMonth + "/" + state.fechaPublic.monthValue + "/" +state.fechaPublic.year} </p>
         <button>Modificar fechas</button>
-        <p>Fecha de revisión: {state.fechaRevisi} </p>
+        <form className="fechas" method="POST">
+           <label for="name">Date</label>
+           <input type="date" id="date" name="date" value="<%= state ? state.fechaPublic.toDateString() : ''%>"  data-date="" date-date-format="YYYY-MM-DD"/>
+        </form>
+        <p>Fecha de revisión: {state.fechaRevisi.dayOfMonth + "/" + state.fechaRevisi.monthValue + "/" +state.fechaRevisi.year} </p>
         <button>Modificar fechas</button>
       </span>
       <Footer />

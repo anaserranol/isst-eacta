@@ -45,7 +45,7 @@ public class AsignacionesResource {
 	public Response create(Asignaciones tnew) throws URISyntaxException {
 		Asignaciones t = AsignacionesDAOImplementation.getInstance().create(tnew);
 		if (t != null) {
-            URI uri = new URI("/Asignaciones-SERVICE/rest/Asignaciones/" + t.getId());
+            URI uri = new URI("/EACTA-SERVICE/rest/Asignaciones/" + t.getId());
             return Response.created(uri).build();
 		}
 		return Response.status(Response.Status.NOT_FOUND).build();
@@ -67,7 +67,7 @@ public class AsignacionesResource {
     public Response update(@PathParam("id") int id, Asignaciones t) {
             System.out.println("Update request for" + id + " " + t.toString());
         Asignaciones told = AsignacionesDAOImplementation.getInstance().read(id);
-        if ((told == null) || (told.getId() != (t.getId())))
+        if ((told == null) || (!(told.getId() == (t.getId()))))
           return Response.notModified().build();
         AsignacionesDAOImplementation.getInstance().update(t);
         return Response.ok().build();                

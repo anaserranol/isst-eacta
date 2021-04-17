@@ -18,7 +18,7 @@ export default function Actas (props) {
             <div className="todo">
             <Header userLogged = {userLogged} rol = {userLogged.rol} onLogout={() => props.onLogout()}/>
             <div className="actaSpace">
-                <img className="actaPDF" src={acta}/>
+                <img className="actaPDF" src={acta} alt="actapdf"/>
                 <div>
                 <h1>Actas de {state.usuario}</h1>
                     <button hidden={userLogged.rol !== "profesor"} disabled={state.estado === "final"}>Crear</button>

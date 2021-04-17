@@ -22,6 +22,57 @@ public class Calificaciones implements Serializable {
 		super();
 	}
 
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public int getCodigoAsignatura() {
+		return codigoAsignatura;
+	}
+
+
+	public void setCodigoAsignatura(int codigoAsignatura) {
+		this.codigoAsignatura = codigoAsignatura;
+	}
+
+
+	public long getAlumnoID() {
+		return alumnoID;
+	}
+
+
+	public void setAlumnoID(long alumnoID) {
+		this.alumnoID = alumnoID;
+	}
+
+
+	public double getNota() {
+		return nota;
+	}
+
+
+	public void setNota(double nota) {
+		this.nota = nota;
+	}
+
+
+	public boolean isRevisionPedida() {
+		return revisionPedida;
+	}
+
+
+	public void setRevisionPedida(boolean revisionPedida) {
+		this.revisionPedida = revisionPedida;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -59,55 +110,5 @@ public class Calificaciones implements Serializable {
 		return true;
 	}
 
-
-	public boolean isRevisionPedida() {
-		return revisionPedida;
-	}
-
-
-
-	public void setRevisionPedida(boolean revisionPedida) {
-		this.revisionPedida = revisionPedida;
-	}
-
-
-
-	public void setAlumnoID(long alumnoID) {
-		this.alumnoID = alumnoID;
-	}
-
-
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getCodigoAsignatura() {
-		return codigoAsignatura;
-	}
-
-	public void setCodigoAsignatura(int codigoAsignatura) {
-		this.codigoAsignatura = codigoAsignatura;
-	}
-
-	public long getAlumnoID() {
-		return alumnoID;
-	}
-
-	public void setAlumnoID(int alumnoID) {
-		this.alumnoID = alumnoID;
-	}
-
-	public double getNota() {
-		return nota;
-	}
-
-	public void setNota(double nota) {
-		this.nota = nota;
-	}
 
 }

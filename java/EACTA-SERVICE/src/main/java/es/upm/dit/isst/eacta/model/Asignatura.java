@@ -1,6 +1,8 @@
 package es.upm.dit.isst.eacta.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,27 +17,26 @@ public class Asignatura implements Serializable{
 
 	private String nombre;
 	private String acronimo;
-	private Date fechaPublicacion;
-	private Date fechaRevision;
+	private LocalDate fechaPublicacion;
+	private LocalDate fechaRevision;
 	private boolean isFinal;
-	
-	
-	public Date getFechaPublicacion() {
+
+	public LocalDate getFechaPublicacion() {
 		return fechaPublicacion;
 	}
 
 
-	public void setFechaPublicacion(Date fechaPublicacion) {
+	public void setFechaPublicacion(LocalDate fechaPublicacion) {
 		this.fechaPublicacion = fechaPublicacion;
 	}
 
 
-	public Date getFechaRevision() {
+	public LocalDate getFechaRevision() {
 		return fechaRevision;
 	}
 
 
-	public void setFechaRevision(Date fechaRevision) {
+	public void setFechaRevision(LocalDate fechaRevision) {
 		this.fechaRevision = fechaRevision;
 	}
 

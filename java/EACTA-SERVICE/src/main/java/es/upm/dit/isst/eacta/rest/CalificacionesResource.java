@@ -45,7 +45,7 @@ public class CalificacionesResource {
 	public Response create(Calificaciones tnew) throws URISyntaxException {
 		Calificaciones t = CalificacionesDAOImplementation.getInstance().create(tnew);
 		if (t != null) {
-            URI uri = new URI("/Calificaciones-SERVICE/rest/Calificaciones/" + t.getId());
+            URI uri = new URI("/EACTA-SERVICE/rest/Calificaciones/" + t.getId());
             return Response.created(uri).build();
 		}
 		return Response.status(Response.Status.NOT_FOUND).build();
@@ -67,7 +67,7 @@ public class CalificacionesResource {
     public Response update(@PathParam("id") int id, Calificaciones t) {
             System.out.println("Update request for" + id + " " + t.toString());
         Calificaciones told = CalificacionesDAOImplementation.getInstance().read(id);
-        if ((told == null) || (told.getId() != (t.getId())))
+        if ((told == null) || (!(told.getId() == (t.getId()))))
           return Response.notModified().build();
         CalificacionesDAOImplementation.getInstance().update(t);
         return Response.ok().build();                
