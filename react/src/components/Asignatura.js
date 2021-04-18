@@ -98,7 +98,7 @@ export default class Asignaturas extends React.Component {
               body: JSON.stringify(this.props.notas[num])
           }).then(response => response.json()).then(data => console.log(data));
       } catch(e) {
-        alert(e)
+        //alert(e)
           console.log(e)
           return;
       }

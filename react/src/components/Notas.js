@@ -41,7 +41,7 @@ export default function Notas(props) {
           body: JSON.stringify(state.asignatura)
       }).then(response => response.json()).then(data => console.log(data));
   } catch(e) {
-    alert(e)
+   // alert(e)
       console.log(e)
       return;
   } 

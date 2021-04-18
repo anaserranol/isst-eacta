@@ -120,7 +120,7 @@ class FileReader extends React.Component {
           disabled={this.props.finale}
         />
 
-        <button onClick={this.importCSV} disabled={this.props.finale}>
+        <button onClick={this.importCSV} disabled={this.props.finale || this.state.csvfile === undefined}>
           {" "}
           Importar{" "}
         </button>
@@ -132,7 +132,7 @@ class FileReader extends React.Component {
             IDUSUARIO
           </TableHeaderColumn>
           <TableHeaderColumn dataField="nombre">NOMBRE</TableHeaderColumn>
-          <TableHeaderColumn dataField="nota">ROL</TableHeaderColumn>
+          <TableHeaderColumn dataField="nota">NOTA</TableHeaderColumn>
           <TableHeaderColumn dataField="revision">REVISIÓN</TableHeaderColumn>
         </BootstrapTable>
         <button disabled={this.props.finale} onClick={() => this.subirNotas()}>
@@ -215,7 +215,7 @@ class FileReader extends React.Component {
 
       
     } catch (e) {
-      alert(e);
+      //alert(e);
       console.log(e);
       return;
     }
