@@ -25,19 +25,6 @@ export default function Login(props) {
       } catch (e) {
         alert(e);
       }
-
-      try {
-      let response2 = await fetch(
-        "http://localhost:8080/EACTA-SERVICE/rest/Asignatura/"
-      );
-      let subs2 = await response2.json();
-
-      console.log(subs2)
-      console.log(subs2[0].fechaPublicacion.dayOfMonth + "/" + subs2[0].fechaPublicacion.monthValue + "/" +subs2[0].fechaPublicacion.year)
-  
-    } catch (e) {
-      alert(e);
-    }
     };
     fetchData();
   }, []);

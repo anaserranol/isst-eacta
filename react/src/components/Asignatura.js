@@ -1,13 +1,10 @@
 import React from "react";
-import { calificaciones, estado, fechas } from "./Constants";
 import { Link } from "react-router-dom";
 import "../assets/style/Asignatura.css";
-import axios from "axios"
 
 export default class Asignaturas extends React.Component {
   render() {
     const { userLogged, subjects, notas } = this.props;
-    const alumno = userLogged.name === "alumno1" ? 0 : 1;
     console.log(notas)
     if (userLogged.rol === "admin") {
       return <h1>Algo ha ocurrido, error</h1>;
@@ -26,10 +23,10 @@ export default class Asignaturas extends React.Component {
               pathname: "/notas",
               state: {
                 //usuario: userLogged.subjects[num],
+                asignatura: asig,
                 codAsig: asig.codigo,
-                calificaciones: calificaciones,
                 numero: num,
-                estado: asig.final,
+                estado: asig.esfinal,
                 fechaPublic: asig.fechaPublicacion,
                 fechaRevisi: asig.fechaRevision,
               },
@@ -38,21 +35,21 @@ export default class Asignaturas extends React.Component {
           >
             <button>Calificaciones</button>
           </Link>
-          <p hidden={userLogged.rol !== "alumno"}>Nota {estado[num]}</p>
+          <p hidden={userLogged.rol !== "alumno"}>Nota {asig.esfinal ? "final" : "provisional"}</p>
           <p hidden={userLogged.rol === "alumno"}>
             {" "}
-            Las notas son {estado[num]}es
+            Las notas son {asig.esfinal ? "final" : "provisional"}es
           </p>
-          <p hidden={asig.final}>
+          <p hidden={asig.esfinal}>
             {" "}
             La fecha provisional de publicacion de notas es:{" "}
-            {asig.fechaPublicacion.dayOfMonth + "/" + asig.fechaPublicacion.monthValue + "/" +asig.fechaPublicacion.year}
+            {asig.fechaPublicacion}
           </p>
-          <p hidden={asig.final}>
-            La fecha de revisión es: {asig.fechaRevision.dayOfMonth + "/" + asig.fechaRevision.monthValue + "/" +asig.fechaRevision.year}
+          <p hidden={asig.esfinal}>
+            La fecha de revisión es: {asig.fechaRevision}
           </p>
           <button
-            hidden={userLogged.rol !== "alumno" || asig.final}
+            hidden={userLogged.rol !== "alumno" || asig.esfinal}
             disabled={userLogged.rol !== "alumno" ? true : notas[num].revisionPedida}
             onClick={() => this.pedirRevision(num)}
           >
@@ -69,7 +66,7 @@ export default class Asignaturas extends React.Component {
               pathname: "/actas",
               state: {
                 //usuario: userLogged.subjects[num],
-                estado: estado[num],
+                estado: asig.esfinal ? "final" : "provisional",
               },
             }}
             hidden={userLogged.rol !== "profesor" && userLogged.rol !== "pas"}

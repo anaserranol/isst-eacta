@@ -17,61 +17,62 @@ public class Asignatura implements Serializable{
 
 	private String nombre;
 	private String acronimo;
-	private LocalDate fechaPublicacion;
-	private LocalDate fechaRevision;
-	private boolean isFinal;
+	private String fechaPublicacion;
+	private String fechaRevision;
+	private boolean esfinal;
 
-	public LocalDate getFechaPublicacion() {
-		return fechaPublicacion;
+	public boolean isEsfinal() {
+		return esfinal;
 	}
 
-
-	public void setFechaPublicacion(LocalDate fechaPublicacion) {
-		this.fechaPublicacion = fechaPublicacion;
+	public void setEsfinal(boolean esfinal) {
+		this.esfinal = esfinal;
 	}
 
-
-	public LocalDate getFechaRevision() {
-		return fechaRevision;
+	public Asignatura() {
+		super();
 	}
-
-
-	public void setFechaRevision(LocalDate fechaRevision) {
-		this.fechaRevision = fechaRevision;
-	}
-
+	
 
 	public int getCodigo() {
 		return codigo;
 	}
 
-
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public String getAcronimo() {
 		return acronimo;
 	}
 
-
 	public void setAcronimo(String acronimo) {
 		this.acronimo = acronimo;
 	}
 
+	public String getFechaPublicacion() {
+		return fechaPublicacion;
+	}
 
+	public void setFechaPublicacion(String fechaPublicacion) {
+		this.fechaPublicacion = fechaPublicacion;
+	}
 
+	public String getFechaRevision() {
+		return fechaRevision;
+	}
+
+	public void setFechaRevision(String fechaRevision) {
+		this.fechaRevision = fechaRevision;
+	}
 
 	@Override
 	public int hashCode() {
@@ -79,13 +80,12 @@ public class Asignatura implements Serializable{
 		int result = 1;
 		result = prime * result + ((acronimo == null) ? 0 : acronimo.hashCode());
 		result = prime * result + codigo;
+		result = prime * result + (esfinal ? 1231 : 1237);
 		result = prime * result + ((fechaPublicacion == null) ? 0 : fechaPublicacion.hashCode());
 		result = prime * result + ((fechaRevision == null) ? 0 : fechaRevision.hashCode());
-		result = prime * result + (isFinal ? 1231 : 1237);
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -103,6 +103,8 @@ public class Asignatura implements Serializable{
 			return false;
 		if (codigo != other.codigo)
 			return false;
+		if (esfinal != other.esfinal)
+			return false;
 		if (fechaPublicacion == null) {
 			if (other.fechaPublicacion != null)
 				return false;
@@ -113,8 +115,6 @@ public class Asignatura implements Serializable{
 				return false;
 		} else if (!fechaRevision.equals(other.fechaRevision))
 			return false;
-		if (isFinal != other.isFinal)
-			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
@@ -122,19 +122,11 @@ public class Asignatura implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 
 
-	public boolean isFinal() {
-		return isFinal;
-	}
 
-
-	public void setFinal(boolean isFinal) {
-		this.isFinal = isFinal;
-	}
-
-
-	public Asignatura() {
-		super();
-	}
+	
+	
 }

@@ -31,7 +31,7 @@ public class AsignaturaResource {
 	public Response create(Asignatura tnew) throws URISyntaxException {
 		Asignatura t = AsignaturaDAOImplementation.getInstance().create(tnew);
 		if (t != null) {
-            URI uri = new URI("/EACTA-SERVICE/rest/Asignaturas/" + t.getCodigo());
+            URI uri = new URI("/EACTA-SERVICE/rest/Asignatura/" + t.getCodigo());
             return Response.created(uri).build();
 		}
 		return Response.status(Response.Status.NOT_FOUND).build();
