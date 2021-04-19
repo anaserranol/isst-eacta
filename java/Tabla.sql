@@ -19,9 +19,9 @@ INSERT INTO Calificaciones (id, codigoAsignatura, alumnoID, nota,revisionpedida)
 
 --Asignatura
 
-INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevision, isfinal) VALUES (100, 'INGENIERÍA DE SISTEMAS Y SERVICIOS TELEMÁTICOS', 'ISST', '15/05/2021', '30/05/2021', 0);
-INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevision, isfinal) VALUES (200, 'DIMENSIONADO Y OPERACIÓN DE REDES', 'DORE', '21/04/2021', '01/05/2021', 1);
-INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevision, isfinal) VALUES (300, 'REDES Y SERVICIOS DE RADIO', 'RSRD', '30/05/2021', '10/06/2021', 0);
+INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevision, esfinal) VALUES (100, 'INGENIERÍA DE SISTEMAS Y SERVICIOS TELEMÁTICOS', 'ISST', '15/05/2021', '30/05/2021', 0);
+INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevision, esfinal) VALUES (200, 'DIMENSIONADO Y OPERACIÓN DE REDES', 'DORE', '21/04/2021', '01/05/2021', 1);
+INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevision, esfinal) VALUES (300, 'REDES Y SERVICIOS DE RADIO', 'RSRD', '30/05/2021', '10/06/2021', 0);
 
 --Asignaciones
 
