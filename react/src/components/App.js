@@ -2,6 +2,8 @@ import React from "react";
 import '../assets/style/App.css';
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import {useEffect} from 'react'
 
 // Importamos componentes
 import Home from "./Home";
@@ -30,36 +32,80 @@ import {
 function App(props) {
   const { usersBBDD, userLogged, marks} = props;
   console.log(props)
+  const [cookies, setCookie, removeCookie] = useCookies(['rol', 'name','id']);
+  console.log("COOKIES")
+  console.log(cookies);
+
+  function onChange (email, pass) {
+    let rol = rolRestart;
+    let name = nameRestart;
+    let id = idRestart;
+    for (var user in usersBBDD) {
+      if (email == usersBBDD[user].email && pass == usersBBDD[user].password){
+        rol = usersBBDD[user].rol;
+        name = usersBBDD[user].nombre;
+        id = usersBBDD[user].id;
+       
+        setCookie('rol', usersBBDD[user].rol, {path: '/'});
+        setCookie('name', usersBBDD[user].nombre, {path: '/'});
+        setCookie('id', usersBBDD[user].id, {path: '/'});
+      }
+    }
+    console.log(id)
+
+    props.dispatch(userLogin(rol, name, id));  
+  }
+
+  function logOut () {
+    setCookie('id', "", {path: '/'});
+    setCookie('rol', "", {path: '/'});
+    setCookie('name', "", {path: '/'});
+  }
+
+  useEffect(() => {
+    // Se hace asi para evitar un bucle
+    const fetchData = async () => {
+      try {
+        // Descargamos los usuarios de la url dada
+        let response = await fetch(
+          "http://localhost:8080/EACTA-SERVICE/rest/Usuarios"
+        );
+        // Los convertimos a array
+        let users = await response.json();
+        // Se los pasamos a Redux
+        console.log("Cargando")
+        props.dispatch(initUsers(users));
+      } catch (e) {
+        alert(e);
+      }
+    };
+    fetchData();
+    props.dispatch(userLogin(cookies.rol, cookies.name, cookies.id))
+  }, []);
+
+  console.log("USERLOGG")
+  console.log(userLogged)
+  console.log("BBDD")
+  console.log(usersBBDD)
   return (
     <Router>
       <div className="main">
         <Switch>
           <Route exact path="/login">
-            { userLogged.rol !== undefined ? userLogged.rol === "admin" ? <Redirect to ="/users" /> : <Redirect to ="/" /> :
+            { (cookies.rol === undefined || cookies.rol === "") ? 
             <Login 
-              initUsers = {(users) => props.dispatch(initUsers(users))}
-              userLogged = {userLogged}
-              onLogin = {(email, pass) => {
-                let rol = rolRestart;
-                let name = nameRestart;
-                let id = idRestart;
-                for (var user in usersBBDD) {
-                  if (email == usersBBDD[user].email && pass == usersBBDD[user].password){
-                    rol = usersBBDD[user].rol;
-                    name = usersBBDD[user].nombre;
-                    id = usersBBDD[user].id;
-                  }
-                }
-                
-                props.dispatch(userLogin(rol, name, id));                
-              }}
-            />
+            userLogged = {userLogged}
+            onLogin = {(email, pass) => onChange(email,pass)}
+          /> :
+            
+            cookies.rol === "admin" ? <Redirect to ="/users" /> : <Redirect to ="/" /> 
+            
             }
           </Route>
           <Route exact path="/notas">
-            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
               <Notas
-              onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart, idRestart, marksRestart))}
+              onLogout = {() => logOut()}
               userLogged = {userLogged}
               subjects = {props.subjects}
               marks = {(marks) => props.dispatch(saveMarks(marks))}
@@ -69,26 +115,26 @@ function App(props) {
             }
           </Route>
           <Route exact path="/actas">
-            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
               <Actas
-              onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart, idRestart, marksRestart))}
+              onLogout = {() => logOut()}
               userLogged = {userLogged}
               />
             }
           </Route>
           <Route exact path="/users">
-            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
               <Users
-                onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart, idRestart, marksRestart))}
+              onLogout = {() => logOut()}
                 userLogged = {userLogged}
                 usersBBDD = {usersBBDD}
               />
             }
           </Route>
           <Route exact path="/">
-            {userLogged.rol === undefined ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
               <Home 
-                onLogout = {() => props.dispatch(userLogout(rolRestart, subjectsRestart, nameRestart, idRestart, marksRestart))}
+                onLogout = {() => logOut()}
                 userLogged = {userLogged}
                 subjs = {(subj) => props.dispatch(saveSubjects(subj))}
                 subjects = {props.subjects}

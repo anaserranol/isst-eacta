@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
 import logo from "../assets/img/logo2.png";
 import unknown from "../assets/img/Unknown.jpg";
@@ -20,7 +21,7 @@ export default class Home extends React.Component {
                     <img className="logLogo" src={logo} />
                     <h1>eActa</h1>
                 </div>
-                <button onClick={ () => this.props.onLogout()}> Cerrar sesión </button>
+                <button onClick={ () => this.props.onLogout()}> <Link to="/login"/>Cerrar sesión</button>
             </div>
         )
     }

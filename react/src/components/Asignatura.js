@@ -6,6 +6,8 @@ export default class Asignaturas extends React.Component {
   render() {
     const { userLogged, subjects, notas } = this.props;
     console.log(notas)
+    console.log("AQUII")
+    console.log(subjects)
     if (userLogged.rol === "admin") {
       return <h1>Algo ha ocurrido, error</h1>;
     } else if (subjects === [""]) {

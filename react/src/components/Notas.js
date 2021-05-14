@@ -45,9 +45,8 @@ export default function Notas(props) {
       console.log(e)
       return;
   } 
-  
-
   }
+    
   return (
     <div className="todo">
       <Header

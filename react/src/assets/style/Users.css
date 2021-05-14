@@ -1,0 +1,42 @@
+.usuTodo {
+    display: inline-flex;
+    width: 100%;
+}
+
+.usuarios {
+    width: 50%;
+    border: 5px solid green;
+    text-align: center;
+}
+
+.asigTodo {
+    width: 50%;
+    border: 5px solid green;
+    text-align: center;
+}
+
+.cuerpo {
+    width: 90%;
+    margin-left: 3em;
+    margin-right: 1em;
+    margin-top: 8%;
+}
+.asigTodo .react-bootstrap-table {
+    margin-left: 20%;
+}
+
+.tablaUsu .react-bootstrap-table {
+    margin-left: 25%;
+}
+
+.butsub {
+    margin-top: 1em;
+}
+
+#butusdel, #butasadd, #butasdel {
+    margin-left: 1em;
+}
+
+#text {
+    margin-bottom: 2em;
+}

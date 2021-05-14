@@ -9,26 +9,6 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    // Se hace asi para evitar un bucle
-    const fetchData = async () => {
-      try {
-        // Descargamos los usuarios de la url dada
-        let response = await fetch(
-          "http://localhost:8080/EACTA-SERVICE/rest/Usuarios"
-        );
-        // Los convertimos a array
-        let users = await response.json();
-        // Se los pasamos a Redux
-        console.log("Cargando")
-        props.initUsers(users);
-      } catch (e) {
-        alert(e);
-      }
-    };
-    fetchData();
-  }, []);
-
   return (
     <div className="login">
       <div className="logIzq">

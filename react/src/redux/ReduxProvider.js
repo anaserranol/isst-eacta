@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 import GlobalState from './reducers';
 import { createStore } from 'redux';
+import { CookiesProvider } from 'react-cookie';
 
 import React from 'react';
 import App from '../components/App';
@@ -29,9 +30,11 @@ export default class ReduxProvider extends React.Component {
     render () {
         return (
             <Provider store = { this.store } >
-                <div style = {{height: '100%'}} >
+                <CookiesProvider>
+                <div style = {{height: '100%', width: '100%'}} >
                     <App/>
                 </div>
+                </CookiesProvider>
             </Provider>
         );
     }
