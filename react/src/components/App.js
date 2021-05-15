@@ -16,23 +16,21 @@ import Actas from "./Actas";
 import {
   saveSubjects,
   initUsers,
-  userLogin, userLogout,
+  userLogin, 
   saveMarks
 } from "../redux/actions"
 
 // Importamos las constantes
 import {
   rolRestart,
-  subjectsRestart,
   nameRestart,
   idRestart,
-  marksRestart
 } from "./Constants"
 
 function App(props) {
   const { usersBBDD, userLogged, marks} = props;
   console.log(props)
-  const [cookies, setCookie, removeCookie] = useCookies(['rol', 'name','id']);
+  const [cookies, setCookie] = useCookies(['rol', 'name','id']);
   console.log("COOKIES")
   console.log(cookies);
 
@@ -41,7 +39,7 @@ function App(props) {
     let name = nameRestart;
     let id = idRestart;
     for (var user in usersBBDD) {
-      if (email == usersBBDD[user].email && pass == usersBBDD[user].password){
+      if (email === usersBBDD[user].email && pass === usersBBDD[user].password){
         rol = usersBBDD[user].rol;
         name = usersBBDD[user].nombre;
         id = usersBBDD[user].id;

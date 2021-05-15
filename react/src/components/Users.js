@@ -194,7 +194,7 @@ export default function Users(props) {
                 rol: usersTable[i].rol,
               }),
             }
-          )
+          );
         } catch (e) {
           alert("Error al guardar los usuarios.");
           console.log(e);
@@ -202,8 +202,7 @@ export default function Users(props) {
         }
       }
     });
-    if (alerta)
-      alert("Recargue la página para que se carguen los cambios.");
+    if (alerta) alert("Recargue la página para que se carguen los cambios.");
   };
 
   // Post para añadir a un usuario
@@ -221,7 +220,7 @@ export default function Users(props) {
       alert(
         "No existe ese rol. Escriba uno entre: admin, profesor, alumno y pas"
       );
-      // Comprobamos si el mail es correcto
+    // Comprobamos si el mail es correcto
     else if (emailU.indexOf("@") === -1)
       alert("Por favor, introduce un email válido");
     else {
@@ -232,45 +231,45 @@ export default function Users(props) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id: usersBBDD.length + 1,
+            id: usersBBDD[usersBBDD.length - 1].id + 1,
             email: emailU,
             nombre: nombreU,
             password: passU,
             rol: rolU,
           }),
         });
+        // En caso de ser pas, le asignamos todas las asignaturas para que pueda acceder a ellas
+        if (rolU === "pas") {
+          // Para el id de asignaciones
+          let nume = asignac.length + 1;
+          // Hacemos un post por asignatura
+          asignatu.map(async (una, i) => {
+            try {
+              await fetch(
+                "http://localhost:8080/EACTA-SERVICE/rest/Asignaciones/",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    id: nume++,
+                    codigoAsignatura: una.codigo,
+                    usuarioID: usersBBDD[usersBBDD.length - 1].id + 1,
+                  }),
+                }
+              );
+            } catch (e) {
+              alert("Error al añadir al usuario.");
+              console.log(e);
+              return;
+            }
+          });
+        }
       } catch (e) {
         alert("Error al añadir al usuario.");
         console.log(e);
         return;
-      }
-      // En caso de ser pas, le asignamos todas las asignaturas para que pueda acceder a ellas
-      if (rolU === "pas") {
-        // Para el id de asignaciones
-        let nume = asignac.length + 1;
-        // Hacemos un post por asignatura
-        asignatu.map(async (una, i) => {
-          try {
-            await fetch(
-              "http://localhost:8080/EACTA-SERVICE/rest/Asignaciones/",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  id: nume++,
-                  codigoAsignatura: una.codigo,
-                  usuarioID: usersBBDD.length + 1,
-                }),
-              }
-            );
-          } catch (e) {
-            alert("Error al añadir al usuario.");
-            console.log(e);
-            return;
-          }
-        });
       }
       alert(
         "Usuario añadido con éxito. Recarga la página para ver los cambios."
@@ -278,18 +277,22 @@ export default function Users(props) {
     }
   };
 
-  // Delete para borrar al usuario 
+  // Delete para borrar al usuario
   const deleteUser = async () => {
+    // Para ver qué era
+    let rol;
     // Comprobamos que no este vacío
     if (num == "") alert("Por favor, introduce un id de usuario");
     // Comprobamos que sea un número
     else if (isNaN(Number(num))) alert("Por favor, introduce un número");
-
     else {
       // Vemos si es un id de un usuario existente
       let flag = false;
       usersBBDD.map(async (id, i) => {
-        if (id.id == Number(num)) flag = true;
+        if (id.id == Number(num)) {
+          flag = true;
+          rol = id.rol;
+        }
       });
       if (flag) {
         try {
@@ -303,18 +306,88 @@ export default function Users(props) {
           console.log(e);
           return;
         }
+        // Tenemos que eliminar las relaciones con la tabla Calificaciones (alumno) o Asignaciones (profe y pas)
+        if (rol === "alumno") {
+          try {
+            // Hacemos una petición a las calificaciones de este alumno
+            let response = await fetch(
+              "http://localhost:8080/EACTA-SERVICE/rest/Calificaciones/alumno/" +
+                Number(num)
+            );
+            let cali = await response.json();
+            // Vemos si tiene alguna
+            if (cali[0] !== undefined) {
+              // Borramos cada una
+              cali.map(async (cal) => {
+                try {
+                  await fetch(
+                    "http://localhost:8080/EACTA-SERVICE/rest/Calificaciones/" +
+                      cal.id,
+                    {
+                      method: "DELETE",
+                    }
+                  );
+                } catch (e) {
+                  alert("Error al eliminar la calificación del usuario");
+                  console.log(e);
+                  return;
+                }
+              });
+            }
+          } catch (e) {
+            alert("Error al pedir las calificaciones del usuario");
+            console.log(e);
+            return;
+          }
+        } else if (rol === "profesor" || rol === "pas") {
+          try {
+            // Hacemos una petición a las asignaciones de este usuario
+            let response2 = await fetch(
+              "http://localhost:8080/EACTA-SERVICE/rest/Asignaciones/usuario/" +
+                Number(num)
+            );
+            let asig = await response2.json();
+            console.log(asig);
+            // Comprobamos que hay alguna
+            if (asig[0] !== undefined) {
+              console.log("ENTRWE");
+              // Borramos cada una
+              asig.map(async (as) => {
+                console.log(as);
+                try {
+                  await fetch(
+                    "http://localhost:8080/EACTA-SERVICE/rest/Asignaciones/" +
+                      as.id,
+                    {
+                      method: "DELETE",
+                    }
+                  );
+                } catch (e) {
+                  alert("Error al eliminar la asignación del usuario");
+                  console.log(e);
+                  return;
+                }
+              });
+            }
+            console.log("NO ENTRE")
+          } catch (e) {
+            alert("Error al pedir las asignaciones del usuario");
+            console.log(e);
+            return;
+          }
+        }
         alert("Usuario eliminado correctamente. Recargue para ver los cambios");
       } else alert("Por favor, introduce un id de usuario real");
     }
   };
 
-  // Misma filosofía que el del usuario
+  // Misma filosofía que el del usuario pero sin eliminar la relación
   const deleteAsig = async () => {
     if (num2 == "") alert("Por favor, introduce el id de la asignación");
     else if (isNaN(Number(num2))) alert("Por favor, introduce un número");
     else {
       let flag2 = false;
-      asignac.map(async (id, i) => {
+      referencia.map(async (id, i) => {
         if (id.id == Number(num2)) flag2 = true;
       });
       if (flag2) {
@@ -372,7 +445,7 @@ export default function Users(props) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id: asignac.length + 1,
+            id: asignac[asignac.length - 1].id + 1,
             codigoAsignatura: Number(codA),
             usuarioID: Number(idU),
           }),
@@ -535,6 +608,13 @@ export default function Users(props) {
                 <button id="butasdel" onClick={() => deleteAsig()}>
                   {" "}
                   Eliminar{" "}
+                </button>
+                <button
+                  onClick={() => {
+                    console.log(usersBBDD[usersBBDD.length - 1]);
+                  }}
+                >
+                  Pulsa
                 </button>
               </p>
             </div>

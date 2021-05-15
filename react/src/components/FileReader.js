@@ -207,6 +207,8 @@ class FileReader extends React.Component {
                   .then((response) => response.json())
                   .then((data) => console.log(data));
                   idcal++;
+              } else {
+                alert("Se ha introducido un id que no era de alumno o que no existía.")
               }
             })
           }
