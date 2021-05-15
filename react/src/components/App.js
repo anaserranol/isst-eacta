@@ -101,7 +101,7 @@ function App(props) {
             }
           </Route>
           <Route exact path="/notas">
-            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
               <Notas
               onLogout = {() => logOut()}
               userLogged = {userLogged}
@@ -113,7 +113,7 @@ function App(props) {
             }
           </Route>
           <Route exact path="/actas">
-            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
               <Actas
               onLogout = {() => logOut()}
               userLogged = {userLogged}
@@ -121,7 +121,7 @@ function App(props) {
             }
           </Route>
           <Route exact path="/users">
-            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol !== "admin") ? <Redirect to ="/login"/> : 
               <Users
               onLogout = {() => logOut()}
                 userLogged = {userLogged}
@@ -129,8 +129,8 @@ function App(props) {
               />
             }
           </Route>
-          <Route exact path="/">
-            {(cookies.rol === undefined || cookies.rol === "") ? <Redirect to ="/login"/> : 
+          <Route path="/">
+            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
               <Home 
                 onLogout = {() => logOut()}
                 userLogged = {userLogged}
