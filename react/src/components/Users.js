@@ -191,7 +191,7 @@ export default function Users(props) {
                 email: usersTable[i].email,
                 nombre: usersTable[i].name,
                 password: usersBBDD[i].password,
-                rol: usersTable[i].rol,
+                rol: usersBBDD[i].rol,
               }),
             }
           );
@@ -200,6 +200,8 @@ export default function Users(props) {
           console.log(e);
           return;
         }
+        // Si se ha modificado el rol, hay que eliminar las relaciones
+        
       }
     });
     if (alerta) alert("Recargue la página para que se carguen los cambios.");
@@ -516,6 +518,7 @@ export default function Users(props) {
                 columns={columns}
                 cellEdit={cellEditFactory({ mode: "click" })}
               />
+              <p>El rol no se verá modificado</p>
               <button className="butsub" onClick={() => subirUsers()}>
                 {" "}
                 Guardar cambios

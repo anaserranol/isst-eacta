@@ -15,6 +15,7 @@ import "../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
 
 export default function Notas(props) {
 
+  const [notas, setNotas] = useState([]);
   // Para coger la informacion pasada desde Asignatura
   const location = useLocation();
   const state = location.state;
@@ -46,7 +47,69 @@ export default function Notas(props) {
       return;
   } 
   }
+
+
+// Enviar mail
+
+const enviaNotas = async () => {
+  try{
+  let response = await fetch(
+    "http://localhost:8080/EACTA-SERVICE/rest/Calificaciones"
+  );
+  // Los convertimos a array
+  let notar = await response.json();
+  setNotas(notar);
+} catch (e) {
+  alert(e);
+}
+  console.log(notas)
+  let usuarios = props.usersBBDD;
+  var calificaciones = [];
+  var nota = [];
+  let codigo = state.asignatura.codigo;
+  for (let i = 0; i < notas.length; i++) {
+      for (let j = 0; j < usuarios.length; j++) {
+        if (notas[i].codigoAsignatura == codigo && usuarios[j].id == notas[i].alumnoID){
+          let nota2 = [usuarios[j].email, usuarios[j].nombre, notas[i].nota];
+          calificaciones.push(nota2);
+          console.log(calificaciones)
+        }
+      }
     
+  }
+
+  for (let i = 0; i < calificaciones.length; i++) {
+    console.log(calificaciones)
+    mail(calificaciones[i][0], calificaciones[i][1], calificaciones[i][2], state.asignatura.acronimo);
+    console.log("Correo enviado a " + calificaciones[i][0]);
+  }
+}
+
+const mail = (address, name, grade, subject) => {
+  var API_KEY = '8a400fe3bdd514ce6387fc9534fd79e5-6e0fd3a4-66c1597a';
+  var DOMAIN = 'sandbox2c9e8cc6c40b46b79f70aeb1761521a7.mailgun.org';
+  var mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
+
+  let receiver = address;
+  let nombre = name;
+  let nota = grade;
+  let asignatura = subject;
+  let text = 'Hola, ' + nombre + ', le informamos que ha obtenido un ' + nota + ' en la asignatura de '+ asignatura + '.';
+  let texthtml = '<html> <body> Buenas, ' +nombre+ ', le informamos que ha obtenido un ' +nota+' en la asignatura de '+ asignatura +'. <br> <a href="http://localhost:3000/" class="btn-primary" itemprop="url">Acceder a la plataforma de eActa</a>. </body> </html>'
+
+  const data = {
+      from: 'eActa <noreply@eacta.com>',
+      to: receiver,
+      subject: 'Calificaciones',
+      text: text,
+      html: texthtml
+  };
+
+  mailgun.messages().send(data, (error, body) => {
+      console.log(body);
+  });
+}
+
   return (
     <div className="todo">
       <Header
@@ -72,8 +135,12 @@ export default function Notas(props) {
         value={value2}
       /> </p>
         <button onClick={() => subirFecha(2)}>Modificar fecha</button>
+        <p>
+        <button onClick={() => enviaNotas()}>Enviar notas por correo</button>
+        </p>
       </span>
       <Footer />
     </div>
   );
 }
+
