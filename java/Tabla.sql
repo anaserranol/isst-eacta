@@ -25,14 +25,22 @@ INSERT INTO Asignatura (codigo, nombre, acronimo, fechapublicacion, fecharevisio
 
 --Asignaciones
 
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (1, 100, 2);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (2, 200, 2);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (3, 300, 2);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (4, 100, 3);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (5, 200, 3);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (6, 100, 6);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (7, 200, 6);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (8, 300, 6);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (9, 100, 7);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (10, 200, 7);
-INSERT INTO Asignaciones (Id, codigoAsignatura, usuarioID) VALUES (11, 300, 7);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (1, 100, 0, 2);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (2, 200, 0, 2);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (3, 300, 0, 2);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (4, 100, 0, 3);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (5, 200, 0, 3);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (6, 100, 0, 6);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (7, 200, 0, 6);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (8, 300, 0, 6);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (9, 100, 0, 7);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (10, 200, 0, 7);
+INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (11, 300, 0, 7);
+
+--Acta
+
+INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (100, null, '');
+INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (200, null, '');
+INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (300, null, '');
+
+
