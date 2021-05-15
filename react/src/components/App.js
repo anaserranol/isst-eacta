@@ -92,7 +92,7 @@ function App(props) {
           <Route exact path="/login">
             { (cookies.rol === undefined || cookies.rol === "") ? 
             <Login 
-            userLogged = {userLogged}
+            userLogged = {cookies}
             onLogin = {(email, pass) => onChange(email,pass)}
           /> :
             
@@ -104,7 +104,7 @@ function App(props) {
             {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
               <Notas
               onLogout = {() => logOut()}
-              userLogged = {userLogged}
+              userLogged = {cookies}
               subjects = {props.subjects}
               marks = {(marks) => props.dispatch(saveMarks(marks))}
               notas = {marks}
@@ -116,7 +116,7 @@ function App(props) {
             {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
               <Actas
               onLogout = {() => logOut()}
-              userLogged = {userLogged}
+              userLogged = {cookies}
               />
             }
           </Route>
@@ -124,7 +124,7 @@ function App(props) {
             {(cookies.rol === undefined || cookies.rol === "" || cookies.rol !== "admin") ? <Redirect to ="/login"/> : 
               <Users
               onLogout = {() => logOut()}
-                userLogged = {userLogged}
+                userLogged = {cookies}
                 usersBBDD = {usersBBDD}
               />
             }
@@ -133,7 +133,7 @@ function App(props) {
             {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
               <Home 
                 onLogout = {() => logOut()}
-                userLogged = {userLogged}
+                userLogged = {cookies}
                 subjs = {(subj) => props.dispatch(saveSubjects(subj))}
                 subjects = {props.subjects}
                 marks = {(marks) => props.dispatch(saveMarks(marks))}
