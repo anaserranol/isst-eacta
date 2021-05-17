@@ -13,11 +13,20 @@ public class Asignaciones implements Serializable{
 	private int id;
 	private int codigoAsignatura;
 	private long usuarioID;
+	private boolean haFirmado;
+	
+	public boolean isHaFirmado() {
+		return haFirmado;
+	}
+	public void setHaFirmado(boolean haFirmado) {
+		this.haFirmado = haFirmado;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + codigoAsignatura;
+		result = prime * result + (haFirmado ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + (int) (usuarioID ^ (usuarioID >>> 32));
 		return result;
@@ -32,6 +41,8 @@ public class Asignaciones implements Serializable{
 			return false;
 		Asignaciones other = (Asignaciones) obj;
 		if (codigoAsignatura != other.codigoAsignatura)
+			return false;
+		if (haFirmado != other.haFirmado)
 			return false;
 		if (id != other.id)
 			return false;

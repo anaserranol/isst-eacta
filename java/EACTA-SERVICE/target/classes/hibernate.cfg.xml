@@ -17,5 +17,6 @@
                 <mapping class="es.upm.dit.isst.eacta.model.Asignatura" />
                 <mapping class="es.upm.dit.isst.eacta.model.Usuarios" />
                 <mapping class="es.upm.dit.isst.eacta.model.Asignaciones" />
+                <mapping class="es.upm.dit.isst.eacta.model.Acta" />
         </session-factory>
 </hibernate-configuration>
