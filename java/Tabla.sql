@@ -39,8 +39,8 @@ INSERT INTO Asignaciones (Id, codigoAsignatura, ha firmado, usuarioID) VALUES (1
 
 --Acta
 
-INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (100, null, '');
-INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (200, null, '');
-INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (300, null, '');
+INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (100, '', '');
+INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (200, '', '');
+INSERT INTO Acta (codigoAsignatura, acta, estado) VALUES (300, '', '');
 
 
