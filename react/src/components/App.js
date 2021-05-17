@@ -29,8 +29,7 @@ import {
 
 function App(props) {
   const { usersBBDD, userLogged, marks} = props;
-  console.log(props)
-  const [cookies, setCookie] = useCookies(['rol', 'name','id']);
+  const [cookies, setCookie] = useCookies(['rol', 'name','id', 'email']);
   console.log("COOKIES")
   console.log(cookies);
 
@@ -47,9 +46,9 @@ function App(props) {
         setCookie('rol', usersBBDD[user].rol, {path: '/'});
         setCookie('name', usersBBDD[user].nombre, {path: '/'});
         setCookie('id', usersBBDD[user].id, {path: '/'});
+        setCookie('email', usersBBDD[user].email, {path: '/'});
       }
     }
-    console.log(id)
 
     props.dispatch(userLogin(rol, name, id));  
   }
@@ -58,6 +57,7 @@ function App(props) {
     setCookie('id', "", {path: '/'});
     setCookie('rol', "", {path: '/'});
     setCookie('name', "", {path: '/'});
+    setCookie('email', "", {path: '/'});
   }
 
   useEffect(() => {
@@ -80,11 +80,6 @@ function App(props) {
     fetchData();
     props.dispatch(userLogin(cookies.rol, cookies.name, cookies.id))
   }, []);
-
-  console.log("USERLOGG")
-  console.log(userLogged)
-  console.log("BBDD")
-  console.log(usersBBDD)
   return (
     <Router>
       <div className="main">
@@ -101,7 +96,7 @@ function App(props) {
             }
           </Route>
           <Route exact path="/notas">
-            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin" || cookies.rol === "alumno") ? <Redirect to ="/login"/> : 
               <Notas
               onLogout = {() => logOut()}
               userLogged = {cookies}
@@ -113,10 +108,11 @@ function App(props) {
             }
           </Route>
           <Route exact path="/actas">
-            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin") ? <Redirect to ="/login"/> : 
+            {(cookies.rol === undefined || cookies.rol === "" || cookies.rol === "admin" || cookies.rol === "alumno") ? <Redirect to ="/login"/> : 
               <Actas
               onLogout = {() => logOut()}
               userLogged = {cookies}
+              usersBBDD = {usersBBDD}
               />
             }
           </Route>

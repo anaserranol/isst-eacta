@@ -169,15 +169,28 @@ export default function Users(props) {
   const subirUsers = async () => {
     // Para mostrar la alerta si se ha modificado algo
     let alerta = false;
+    // Vemos si un email se repite
+    let noSeRepiteEmail = true;
+    usersBBDD.map((une, i) => {
+      usersTable.map((edit, n) => {
+        if(i !== n && une.email === edit.email)
+        noSeRepiteEmail = false;
+      })
+    })
+    console.log(noSeRepiteEmail)
+    if (noSeRepiteEmail) {
     // Es nuestra referencia
     usersBBDD.map(async (uno, i) => {
-      // Vamos si se ha editado algo
+      // Vemos si se ha editado algo
+      alerta = false;
       if (
         usersTable[i].email !== uno.email ||
         usersTable[i].rol !== uno.rol ||
         usersTable[i].name !== uno.nombre
       ) {
         alerta = true;
+      }
+        if (alerta) {
         try {
           await fetch(
             "http://localhost:8080/EACTA-SERVICE/rest/Usuarios/" + uno.id,
@@ -200,15 +213,18 @@ export default function Users(props) {
           console.log(e);
           return;
         }
-        // Si se ha modificado el rol, hay que eliminar las relaciones
+        alert("Recargue la página para que se carguen los cambios.");
         
-      }
+        }
+    
     });
-    if (alerta) alert("Recargue la página para que se carguen los cambios.");
+    
+  }
   };
 
   // Post para añadir a un usuario
   const addUser = async () => {
+    let noEstaEmail = true;
     // Comprobamos que no haya ningún campo vacío
     if (passU === "" || emailU === "" || rolU === "" || nombreU === "")
       alert("Hay algún campo vacío");
@@ -226,6 +242,12 @@ export default function Users(props) {
     else if (emailU.indexOf("@") === -1)
       alert("Por favor, introduce un email válido");
     else {
+      // Comprobar que el email no se repita
+      usersBBDD.map(user => {
+        if(user.email === emailU)
+          noEstaEmail = false;
+      })
+      if(noEstaEmail) {
       try {
         await fetch("http://localhost:8080/EACTA-SERVICE/rest/Usuarios", {
           method: "POST",
@@ -258,6 +280,7 @@ export default function Users(props) {
                     id: nume++,
                     codigoAsignatura: una.codigo,
                     usuarioID: usersBBDD[usersBBDD.length - 1].id + 1,
+                    haFirmado: false
                   }),
                 }
               );
@@ -276,6 +299,7 @@ export default function Users(props) {
       alert(
         "Usuario añadido con éxito. Recarga la página para ver los cambios."
       );
+      }
     }
   };
 
@@ -389,8 +413,9 @@ export default function Users(props) {
     else if (isNaN(Number(num2))) alert("Por favor, introduce un número");
     else {
       let flag2 = false;
+      console.log(referencia)
       referencia.map(async (id, i) => {
-        if (id.id == Number(num2)) flag2 = true;
+        if (id.idasig == Number(num2)) flag2 = true;
       });
       if (flag2) {
         try {
@@ -450,6 +475,7 @@ export default function Users(props) {
             id: asignac[asignac.length - 1].id + 1,
             codigoAsignatura: Number(codA),
             usuarioID: Number(idU),
+            haFirmado: false
           }),
         });
       } catch (e) {
@@ -611,13 +637,6 @@ export default function Users(props) {
                 <button id="butasdel" onClick={() => deleteAsig()}>
                   {" "}
                   Eliminar{" "}
-                </button>
-                <button
-                  onClick={() => {
-                    console.log(usersBBDD[usersBBDD.length - 1]);
-                  }}
-                >
-                  Pulsa
                 </button>
               </p>
             </div>

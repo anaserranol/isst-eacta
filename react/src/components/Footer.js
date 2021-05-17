@@ -8,7 +8,6 @@ import {useHistory, useLocation} from 'react-router-dom';
 export default function Footer () {
     const history = useHistory();
     const location = useLocation();
-    console.log(location);
         return (
             <div className="footer">
                 <button className="atras" hidden={location.pathname === "/"} onClick={ () => {

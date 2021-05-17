@@ -40,12 +40,13 @@ export default function Notas(props) {
               "Content-Type": "application/json",
           },
           body: JSON.stringify(state.asignatura)
-      }).then(response => response.json()).then(data => console.log(data));
+      })
   } catch(e) {
-   // alert(e)
+      alert(e)
       console.log(e)
       return;
   } 
+  alert("Fecha modificada con éxito. Recargue la página para ver los cambios")
   }
 
 
@@ -135,10 +136,11 @@ const mail = (address, name, grade, subject) => {
         value={value2}
       /> </p>
         <button onClick={() => subirFecha(2)}>Modificar fecha</button>
-        <p>
+  
+      </span>
+      <p>
         <button onClick={() => enviaNotas()}>Enviar notas por correo</button>
         </p>
-      </span>
       <Footer />
     </div>
   );

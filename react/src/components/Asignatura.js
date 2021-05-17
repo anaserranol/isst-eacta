@@ -69,6 +69,11 @@ export default class Asignaturas extends React.Component {
               state: {
                 //usuario: userLogged.subjects[num],
                 estado: asig.esfinal ? "final" : "provisional",
+                acronimo: asig.acronimo,
+                codigo: asig.codigo,
+                nomAsig: asig.nombre,
+                fp: asig.fechaPublicacion,
+                fr: asig.fechaRevision
               },
             }}
             hidden={userLogged.rol !== "profesor" && userLogged.rol !== "pas"}
@@ -98,12 +103,13 @@ export default class Asignaturas extends React.Component {
                   "Content-Type": "application/json",
               },
               body: JSON.stringify(this.props.notas[num])
-          }).then(response => response.json()).then(data => console.log(data));
+          })
       } catch(e) {
-        //alert(e)
+          alert(e)
           console.log(e)
           return;
       }
+      alert("Revisión pedida. Recargue la página para ver los cambios")
 
   };
 }

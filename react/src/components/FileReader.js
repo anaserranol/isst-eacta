@@ -179,8 +179,7 @@ class FileReader extends React.Component {
                   body: JSON.stringify(una),
                 }
               )
-                .then((response) => response.json())
-                .then((data) => console.log(data));
+              
             }
           } else {
             console.log(miindexnota);
@@ -204,8 +203,7 @@ class FileReader extends React.Component {
                     }),
                   }
                 )
-                  .then((response) => response.json())
-                  .then((data) => console.log(data));
+                  
                   idcal++;
               } else {
                 alert("Se ha introducido un id que no era de alumno o que no existía.")
@@ -214,10 +212,10 @@ class FileReader extends React.Component {
           }
         }
         )};
-
+        alert("Se han actualizado las notas con éxito. Recargue para ver los cambios")
       
     } catch (e) {
-      //alert(e);
+      alert(e);
       console.log(e);
       return;
     }
