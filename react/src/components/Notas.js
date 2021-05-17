@@ -87,8 +87,8 @@ const enviaNotas = async () => {
 }
 
 const mail = (address, name, grade, subject) => {
-  var API_KEY = '8a400fe3bdd514ce6387fc9534fd79e5-6e0fd3a4-66c1597a';
-  var DOMAIN = 'sandbox2c9e8cc6c40b46b79f70aeb1761521a7.mailgun.org';
+  var API_KEY = '';
+  var DOMAIN = '';
   var mailgun = require('mailgun-js')({apiKey: API_KEY, domain: DOMAIN});
 
   let receiver = address;
